@@ -1,0 +1,5 @@
+ <!--别名-->
+    <typeAliases>
+        <typeAlias type="com.ujiuye.bean.PersonBean" alias="person"/>
+        <typeAlias type="com.ujiuye.bean.StudentBean" alias="student"/>
+    </typeAliases>
