@@ -1,0 +1,128 @@
+package com.offcn.bean;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.offcn.dao.UserDao;
+
+public class App {
+
+	/*public static void main(String[] args) throws Exception {
+		String resource = "mybatisconf.xml";
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession openSession = sqlSessionFactory.openSession();
+		Object selectOne = openSession.selectOne("selectUser", 1);
+		System.out.println(selectOne);
+
+	}*/
+	SqlSession openSession;
+	UserDao ud;
+	User u;
+	
+	@Before
+	public void setup() throws Exception {
+		String resource = "mybatisconf.xml";
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		openSession = sqlSessionFactory.openSession();
+		ud = openSession.getMapper(UserDao.class);
+		
+	}
+	
+	@Test
+	//查询id=1 用户的所有信息
+	public void getById() {
+		User user = ud.selectUser(1);
+		System.out.println(user);
+	}
+	
+	
+	@Test
+	//查询用户表有多少个字段
+	public void getAll() {
+		
+		List<User> list = ud.getAll();
+		System.out.println(list);
+	
+	}
+	
+	
+	@Test
+	//添加信息
+	public void getAdd() {
+		u = new User("张三",new Date(),"男","长安");
+		ud.getAdd(u);
+		openSession.commit();
+		//查询最新添加的id
+		System.out.println("id:"+u.getId());
+	}
+	
+	@Test
+	//删除
+	public void delectById() {
+		ud.delectById(25);
+	}
+	
+	@Test
+	//修改
+	public void updateName() {
+		u = new User("张三峰",new Date(),"女","长安");
+		u.setId(26);
+		ud.updateName(u);
+	}
+	
+	@Test
+	//模糊查询姓名 和精确查询性别
+	//封装到user对象中
+	public void getNameAndSex() {
+		u = new User();
+		u.setUsername("阿");
+		u.setSex("女");
+		List<User> list= ud.getNameAndSex(u);
+		System.out.println(list);
+
+	}
+	
+	
+	@Test
+	//模糊查询  多个参数封装到map集合中
+	public void selectNameAndSex() {
+		Map<String,Object> map =new HashMap<>();
+		map.put("username", "阿");
+		map.put("sex", "女");
+		List<User> list = ud.getNameAndSexbak(map);
+		System.out.println(list);
+	}
+	
+	@Test
+	//模糊查询  注解
+	public void selectNameAndSex1() {
+		
+		List<User> list = ud.getNameAndSexbak1("阿","女");
+		System.out.println(list);
+	}
+	
+	@After
+	public void finish() {
+		openSession.commit();
+		openSession.close();
+		
+	}
+	
+
+}
+
+
