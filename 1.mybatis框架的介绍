@@ -1,0 +1,77 @@
+软件框架
+  在规则规定下进行代码的编写
+  实现某个业界标准或完成特定基本任务的软件组件规范
+
+框架是一个半成品，在半成品的基础上完成自己的业务
+
+
+mybatis框架：
+  三层架构：dao、service、servlet
+  1.mybatis是dao层的一个框架  发展史----》ibatis-mybatis
+  2.mybatis是一个半自动化的ORM框架
+                        映射
+  o:object（对象）-----------------------R:relational（关系型数据库）
+                        插入，修改，删除
+                ------------------------->
+                      查询
+                <-------------------------
+                
+                
+ 优势：1.可以简化代码，去除重复繁琐的代码
+       2.可以自动完成对象和数据库数据的转换
+       3.支持缓存机制以及动态sql
+       4.支持将表与表之间的关系转换为实体与实体之间的关系
+
+
+工作流程：
+      1.数据源---->connection--->prepastatement--->resultset(jdbc)
+      2.加载配置文件--->sqlSessionFactory---->sqlSession(excutor)--->statement mapper
+        配置文件格式（xml格式）：全局配置文件（数据源，映射文件，别名）+映射文件（sql语句）
+        
+            解析加载全局配置文件（数据源，映射文件）
+            
+            
+            SqlSessionFactory:sqlSession会话工厂
+            
+            
+            SqlSession:调用执行sql语句
+            
+            
+            excutor:sql执行器
+            
+            
+            statemment  mapper
+                            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
