@@ -1,0 +1,37 @@
+1.配置文件中所有标签是有序的
+
+2.数据源环境
+  Environments default=”ev1”
+  Environment id=”ev1”
+    <transactionManager type="JDBC" />
+			<dataSource type="POOLED">----UNPOOLED
+
+
+
+3.mapper映射文件  4种
+
+<!--映射文件  -->
+	<mappers>
+	   <!-- 单个管理映射文件 -->
+		<!-- <mapper resource="com/offcn/bean/UserMapper.xml"/> -->
+		<!-- 批量管理映射文件,name:映射文件所在的包名（保证映射文件和接口同包同名） -->
+		<!-- <package name="com.offcn.dao"/> -->
+		<!--（保证映射文件和接口同包同名） -->
+		<!-- <mapper class="com.offcn.dao.UserDao"/> -->
+		<mapper url="file:///D:\workspace0715\mybatis002\src\com\offcn\dao\UserDao.xml"/>
+	</mappers>
+  
+  
+  
+  
+  4.properties：引入外部的properties文件
+    <properties resource="db.properties"></properties>
+    
+    
+   5.typeAliases:为映射文件中的输入输出类型指定别名
+   <typeAliases>
+       <!-- 为映射文件中的输入输出类型，进行单个起别名 -->
+       <!-- <typeAlias type="com.offcn.bean.User" alias="u"/> -->
+       <!-- 批量起别名,name:实体类所在的包名user/User  -->
+       <package name="com.offcn.bean"/>
+    </typeAliases>
