@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offcn.dao.UserDao">
+<select id="selectUser" resultType="com.offcn.bean.User">
+select * from user where id = #{id}
+</select>
+<!-- 查询id=1的信息 -->
+<select id="getById" resultType="com.offcn.bean.User" >
+ 	select * from user where id=#{id}
+</select>
+<!-- 查询所有信息 -->
+<select id="getAll"  resultType="com.offcn.bean.User">
+	select * from user
+</select>
+
+
+
+
+<!-- 添加 -->
+<insert id="getAdd" parameterType="com.offcn.bean.User">
+
+	<!-- 查询最新插入数据的主键
+		keyProperty:主键对应的属性名
+		keyColumn:主键对用的列名
+		resultType:主键的类型
+		order="AFTER":主键在插入后生成
+		last_insert_id():查询主键的函数
+	 -->
+
+	<selectKey keyColumn="id" keyProperty="id" resultType="int" order="AFTER">
+		select Last_insert_id()
+	</selectKey>
+	insert into user values(null,#{username},#{birthday},#{sex},#{address})
+	
+</insert>
+
+<!-- 删除 -->
+<delete id="delectById" parameterType="int">
+	delete from user where id=#{id}
+</delete>
+
+
+<!-- 修改 -->
+<update id="updateName" parameterType="com.offcn.bean.User" >
+	update user set username=#{username},sex=#{sex} where id=#{id}
+</update>
+
+
+
+<!-- 1.多个参数封装到一个对象的模糊查询 -->
+
+<select id="getNameAndSex" parameterType="com.offcn.bean.User" resultType="com.offcn.bean.User">
+	select * from user where username like'%${username}%' and sex=#{sex}
+</select>
+
+
+<!-- 2.多个参数封装到一个map里 的模糊查询-->
+<select id="getNameAndSexbak" parameterType="map" resultType="com.offcn.bean.User">
+	select * from user where username like'%${username}%' and sex=#{sex}
+</select>
+
+<!-- 3.接口中的方法里有多个参数，通过注解传递 -->
+<select id="getNameAndSexbak1" resultType="com.offcn.bean.User">
+	select * from user where username like '%${username}%' and sex=#{sex}
+</select>
+
+
+
+
+</mapper>
