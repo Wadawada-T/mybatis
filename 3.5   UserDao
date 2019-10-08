@@ -1,0 +1,39 @@
+package com.offcn.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.offcn.bean.User;
+
+public interface UserDao {
+	//查询id=1 用户的所有信息
+	public User selectUser(int id);
+	
+	//查询用户表有多少个字段
+	public List<User> getAll();
+	
+	//添加
+	public int getAdd(User user);
+	
+	//删除
+	public void delectById(int id);
+	
+	//修改
+	public void updateName(User user);
+	
+	
+	
+	//根据名称模糊查询，性别精确查询
+	//多个参数封装到一个对象中
+	public List<User> getNameAndSex(User user);
+	
+	//根据名称模糊查询，性别精确查询
+	//多个参数封装到一个map集合中
+	public List<User> getNameAndSexbak(Map map);
+	
+	//根据名称模糊查询，性别精确查询
+	//接口中的方法里有多个参数，通过注解传递
+	public List<User> getNameAndSexbak1(@Param("username")String username,@Param("sex")String sex);
+}
